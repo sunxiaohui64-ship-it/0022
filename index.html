@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>高中地科學習頁｜碳循環</title>
+  <meta name="description" content="專為高中生設計的碳循環學習頁，包含重點介紹、示意圖與互動測驗。" />
+  <style>
+    :root {
+      --bg-1: #0f1724;
+      --bg-2: #13283a;
+      --panel: rgba(16, 24, 38, 0.72);
+      --panel-strong: rgba(21, 31, 49, 0.94);
+      --card: rgba(255, 255, 255, 0.08);
+      --card-strong: rgba(255, 255, 255, 0.12);
+      --text: #f7f4ee;
+      --muted: #c7d2e2;
+      --soft: #8fa5bf;
+      --line: rgba(255, 255, 255, 0.12);
+      --accent: #ffb347;
+      --accent-2: #64d2ff;
+      --accent-3: #8ee08e;
+      --danger: #ff7f7f;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: "Noto Serif TC", "Source Han Serif TC", "PingFang TC", "Microsoft JhengHei", serif;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(100, 210, 255, 0.18), transparent 26%),
+        radial-gradient(circle at 86% 12%, rgba(255, 179, 71, 0.16), transparent 24%),
+        radial-gradient(circle at 72% 82%, rgba(142, 224, 142, 0.14), transparent 20%),
+        linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.7), transparent 92%);
+      opacity: 0.3;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 56px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 0 18px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, #ffb347, #ff7a59);
+      box-shadow: 0 18px 30px rgba(255, 122, 89, 0.28);
+      font-size: 1.1rem;
+    }
+
+    .topnav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .topnav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-family: "Inter", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      font-size: 0.96rem;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      transition: transform 180ms ease, background 180ms ease, color 180ms ease;
+    }
+
+    .topnav a:hover {
+      transform: translateY(-1px);
+      color: white;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 20px;
+      align-items: stretch;
+      margin-top: 8px;
+    }
+
+    .hero-main,
+    .hero-side,
+    .section,
+    .quiz-card,
+    .fact-card,
+    .path-card,
+    .mini-card {
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      background: var(--panel);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main {
+      border-radius: var(--radius-xl);
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+      min-height: 560px;
+    }
+
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      inset: auto -60px -100px auto;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 179, 71, 0.28), transparent 66%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(100, 210, 255, 0.12);
+      color: #bfeeff;
+      font-family: "Inter", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.6rem, 4.5vw, 5.1rem);
+      line-height: 1.04;
+      letter-spacing: 0.02em;
+    }
+
+    .lead {
+      margin: 18px 0 24px;
+      max-width: 36rem;
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.9;
+      font-family: "Inter", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 14px 18px;
+      font-size: 1rem;
+      font-family: "Inter", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #ff8b5c);
+      color: #111827;
+      box-shadow: 0 18px 34px rgba(255, 179, 71, 0.28);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .hero-note {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 26px;
+    }
+
+    .note {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .note strong {
+      display: block;
+      font-size: 1.28rem;
+      margin-bottom: 6px;
+    }
+
+    .note span {
+      color: var(--muted);
+      font-family: "Inter", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.55;
+      font-size: 0.95rem;
+    }
+
+    .hero-side {
+      border-radius: var(--radius-xl);
+      padding: 22px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .section {
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      margin-top: 22px;
+    }
+
+    .section h2 {
+      margin: 0 0 12px;
+      font-size: clamp(1.6rem, 2.2vw, 2.4rem);
+    }
+
+    .section p,
+    .section li,
+    .quiz-intro,
+    .path-intro,
+    .fact-card p {
+      font-family: "Inter", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .mini-card {
+      border-radius: 22px;
+      padding: 18px;
+      min-height: 168px;
+    }
+
+    .mini-card h3 {
+      margin: 0 0 8px;
+      font-size: 1.2rem;
+    }
+
+    .mini-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.78;
+    }
+
+    .mini-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      color: #bfeeff;
+      font-size: 0.9rem;
+      font-family: "Inter", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    }
+
+    .flow-wrap {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      align-items: stretch;
+      margin-top: 18px;
+    }
+
+    .diagram {
+      border-radius: 26px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 18px;
+      overflow: hidden;
+    }
+
+    .diagram svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .legend {
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .fact-card {
+      border-radius: 24px;
+      padding: 18px;
+    }
+
+    .fact-card h3 {
+      margin: 0 0 8px;
+      font-size: 1.18rem;
+    }
+
+    .fact-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 8px 12px;
+      margin-bottom: 12px;
+      font-family: "Inter", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      font-size: 0.88rem;
+      color: #111827;
+      background: linear-gradient(135deg, rgba(255,179,71,0.95), rgba(255,210,137,0.9));
+    }
+
+    .quiz-shell {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .path-card,
+    .quiz-card {
+      border-radius: 26px;
+      padding: 20px;
+    }
+
+    .path-stage {
+      display: grid;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .stage-display {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      min-height: 168px;
+    }
+
+    .stage-display strong {
+      display: block;
+      font-size: 1.18rem;
+      margin-bottom: 8px;
+    }
+
+    .stage-display p {
+      margin: 0;
+      color: var(--muted);
+      font-family: "Inter", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.8;
+    }
+
+    .stage-options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option {
+      width: 100%;
+      text-align: left;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      cursor: pointer;
+      font-family: "Inter", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      font-size: 1rem;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+    }
+
+    .option:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .option.correct {
+      border-color: rgba(142, 224, 142, 0.8);
+      background: rgba(142, 224, 142, 0.12);
+    }
+
+    .option.wrong {
+      border-color: rgba(255, 127, 127, 0.7);
+      background: rgba(255, 127, 127, 0.1);
+    }
+
+    .status-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .status-pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+      font-family: "Inter", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      font-size: 0.92rem;
+    }
+
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .score-box {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.08);
+      min-width: 138px;
+      text-align: center;
+    }
+
+    .score-box strong {
+      display: block;
+      font-size: 1.4rem;
+    }
+
+    .score-box span {
+      color: var(--soft);
+      font-family: "Inter", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      font-size: 0.9rem;
+    }
+
+    .quiz-question {
+      margin: 18px 0 12px;
+      font-size: 1.3rem;
+      line-height: 1.55;
+    }
+
+    .quiz-options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .quiz-option {
+      width: 100%;
+      text-align: left;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      cursor: pointer;
+      font-family: "Inter", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      font-size: 1rem;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+    }
+
+    .quiz-option:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .quiz-option.correct {
+      border-color: rgba(142, 224, 142, 0.8);
+      background: rgba(142, 224, 142, 0.12);
+    }
+
+    .quiz-option.wrong {
+      border-color: rgba(255, 127, 127, 0.7);
+      background: rgba(255, 127, 127, 0.1);
+    }
+
+    .feedback {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--muted);
+      min-height: 62px;
+      font-family: "Inter", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.75;
+    }
+
+    .quiz-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      color: var(--soft);
+      font-size: 0.92rem;
+      font-family: "Inter", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    }
+
+    .score-result {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(100,210,255,0.16), rgba(255,179,71,0.16));
+      color: #f7fbff;
+      font-family: "Inter", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.75;
+      display: none;
+    }
+
+    .reveal {
+      animation: reveal 0.7s ease both;
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .flow-wrap,
+      .quiz-shell,
+      .overview-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-main {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        width: min(100% - 18px, 1180px);
+        padding-top: 14px;
+      }
+
+      .hero-main,
+      .hero-side,
+      .section,
+      .quiz-card,
+      .path-card,
+      .fact-card,
+      .mini-card {
+        border-radius: 22px;
+      }
+
+      .hero-main,
+      .section {
+        padding: 22px;
+      }
+
+      .hero-note {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: clamp(2.2rem, 12vw, 3.5rem);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a class="brand" href="#top">
+        <span class="brand-mark">C</span>
+        <span>高中課本主題｜碳循環</span>
+      </a>
+      <nav class="topnav" aria-label="頁面導覽">
+        <a href="#overview">內容介紹</a>
+        <a href="#diagram">圖片示意</a>
+        <a href="#challenge">互動遊戲</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <article class="hero-main reveal">
+          <div class="eyebrow">適合高中生的地球科學單元</div>
+          <h1>把碳放進大自然的循環裡，看見生命、海洋與岩石如何互相連接。</h1>
+          <p class="lead">
+            這個單元固定聚焦在「碳循環」：你會先認識碳在大氣、生物、海洋與岩石圈之間的移動，再透過小測驗檢查自己是否真的理解。
+            內容用高中課本常見的語言整理，適合課堂預習、複習，或考前快速抓重點。
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#challenge">開始互動挑戰</a>
+            <a class="btn btn-secondary" href="#diagram">直接看示意圖</a>
+          </div>
+
+          <div class="hero-note">
+            <div class="note floating" style="animation-delay: 0s;">
+              <strong>4 大庫存</strong>
+              <span>大氣圈、生物圈、海洋與岩石圈，是碳主要停留與流動的地方。</span>
+            </div>
+            <div class="note floating" style="animation-delay: 0.6s;">
+              <strong>2 個核心過程</strong>
+              <span>光合作用把碳帶進生物體，呼吸作用與分解作用再把碳送回環境。</span>
+            </div>
+            <div class="note floating" style="animation-delay: 1.2s;">
+              <strong>1 個長期尺度</strong>
+              <span>當碳進入海洋沉積物與化石燃料，循環速度就會變慢許多。</span>
+            </div>
+          </div>
+        </article>
+
+        <aside class="hero-side reveal">
+          <div class="fact-card">
+            <div class="fact-chip">課本重點</div>
+            <h3>碳循環的本質</h3>
+            <p>碳不是憑空消失，而是在不同系統間轉移。短時間內它會在生物與大氣中快速流動，長時間內則可能進入海洋沉積、石灰岩或化石燃料，成為地球長期儲存的碳庫。</p>
+          </div>
+          <div class="fact-card">
+            <div class="fact-chip">考試常見</div>
+            <h3>你要會分辨</h3>
+            <p>哪些過程會增加大氣中的二氧化碳，哪些過程會把二氧化碳固定到生物或岩石中，這是高中題目最常考的判斷方向。</p>
+          </div>
+          <div class="fact-card">
+            <div class="fact-chip">學習提示</div>
+            <h3>先記住三句話</h3>
+            <p>「植物吸收、動物取得、分解回收。」再把海洋交換與燃燒排放補上，就能把整個循環串起來。</p>
+          </div>
+        </aside>
+      </section>
+
+      <section id="overview" class="section reveal">
+        <h2>內容介紹</h2>
+        <p>下面用三個角度整理碳循環：從「碳在哪裡」、到「碳怎麼流動」、最後再看「人類活動如何干擾循環」。</p>
+
+        <div class="overview-grid">
+          <article class="mini-card">
+            <div class="mini-tag">01｜碳的儲存位置</div>
+            <h3>大氣、生物、海洋、岩石</h3>
+            <p>大氣中以二氧化碳為主；生物體內存在有機碳；海洋能溶解並交換二氧化碳；岩石與沉積物則是最長期、最大的碳庫之一。</p>
+          </article>
+          <article class="mini-card">
+            <div class="mini-tag">02｜碳的流動過程</div>
+            <h3>光合作用、呼吸作用、分解作用</h3>
+            <p>植物利用光合作用固定二氧化碳，動物透過食物鏈取得碳，生物呼吸與分解作用又把碳釋回環境，形成短期循環。</p>
+          </article>
+          <article class="mini-card">
+            <div class="mini-tag">03｜人類的影響</div>
+            <h3>化石燃料燃燒與土地利用</h3>
+            <p>燃燒煤、石油、天然氣會快速釋放儲存在地底的碳；森林砍伐也會降低植物吸碳能力，讓大氣中的二氧化碳增加。</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="diagram" class="section reveal">
+        <h2>圖片示意</h2>
+        <p>這張圖把高中課本常見的碳循環元素放在一起，幫你用一眼看懂「碳如何在不同系統之間移動」。</p>
+
+        <div class="flow-wrap">
+          <div class="diagram" aria-label="碳循環示意圖">
+            <svg viewBox="0 0 960 600" role="img" aria-labelledby="carbon-cycle-title carbon-cycle-desc">
+              <title id="carbon-cycle-title">碳循環示意圖</title>
+              <desc id="carbon-cycle-desc">示意大氣中的二氧化碳經由光合作用進入植物，再經由食物鏈與呼吸作用回到大氣；部分碳進入海洋與沉積物，長期形成岩石與化石燃料。</desc>
+              <defs>
+                <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#18415f"/>
+                  <stop offset="100%" stop-color="#10233a"/>
+                </linearGradient>
+                <linearGradient id="ground" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#35543f"/>
+                  <stop offset="100%" stop-color="#203426"/>
+                </linearGradient>
+                <marker id="arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                  <path d="M0,0 L0,6 L8,3 z" fill="#bfeeff" />
+                </marker>
+                <marker id="arrow-warm" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                  <path d="M0,0 L0,6 L8,3 z" fill="#ffd28c" />
+                </marker>
+              </defs>
+
+              <rect x="24" y="24" width="912" height="552" rx="32" fill="url(#sky)" stroke="rgba(255,255,255,0.18)"/>
+              <path d="M24 350 C160 310, 300 310, 430 348 S730 416, 936 340 L936 576 L24 576 Z" fill="url(#ground)" opacity="0.95"/>
+              <path d="M24 400 C150 362, 304 360, 452 396 S742 472, 936 404" fill="none" stroke="rgba(142,224,142,0.35)" stroke-width="18"/>
+
+              <g>
+                <rect x="344" y="66" width="270" height="92" rx="24" fill="rgba(255,179,71,0.18)" stroke="rgba(255,179,71,0.55)"/>
+                <text x="479" y="110" text-anchor="middle" fill="#fff7ea" font-size="28" font-family="Inter, PingFang TC, Microsoft JhengHei, sans-serif">大氣中的 CO2</text>
+                <text x="479" y="138" text-anchor="middle" fill="#c7d2e2" font-size="18" font-family="Inter, PingFang TC, Microsoft JhengHei, sans-serif">碳循環的快速交換庫</text>
+              </g>
+
+              <g>
+                <rect x="98" y="208" width="188" height="116" rx="28" fill="rgba(142,224,142,0.18)" stroke="rgba(142,224,142,0.65)"/>
+                <text x="192" y="252" text-anchor="middle" fill="#effff1" font-size="26" font-family="Inter, PingFang TC, Microsoft JhengHei, sans-serif">植物</text>
+                <text x="192" y="282" text-anchor="middle" fill="#c7d2e2" font-size="16" font-family="Inter, PingFang TC, Microsoft JhengHei, sans-serif">光合作用固定碳</text>
+              </g>
+
+              <g>
+                <rect x="370" y="240" width="220" height="98" rx="28" fill="rgba(100,210,255,0.18)" stroke="rgba(100,210,255,0.62)"/>
+                <text x="480" y="276" text-anchor="middle" fill="#eff9ff" font-size="26" font-family="Inter, PingFang TC, Microsoft JhengHei, sans-serif">動物與人類</text>
+                <text x="480" y="305" text-anchor="middle" fill="#c7d2e2" font-size="16" font-family="Inter, PingFang TC, Microsoft JhengHei, sans-serif">經由食物鏈取得碳</text>
+              </g>
+
+              <g>
+                <rect x="648" y="210" width="230" height="116" rx="28" fill="rgba(255,127,127,0.16)" stroke="rgba(255,127,127,0.6)"/>
+                <text x="763" y="252" text-anchor="middle" fill="#fff1f1" font-size="26" font-family="Inter, PingFang TC, Microsoft JhengHei, sans-serif">分解者</text>
+                <text x="763" y="282" text-anchor="middle" fill="#c7d2e2" font-size="16" font-family="Inter, PingFang TC, Microsoft JhengHei, sans-serif">把有機物分解回環境</text>
+              </g>
+
+              <g>
+                <rect x="70" y="402" width="184" height="108" rx="28" fill="rgba(100,210,255,0.16)" stroke="rgba(100,210,255,0.58)"/>
+                <text x="162" y="445" text-anchor="middle" fill="#eff9ff" font-size="25" font-family="Inter, PingFang TC, Microsoft JhengHei, sans-serif">海洋</text>
+                <text x="162" y="473" text-anchor="middle" fill="#c7d2e2" font-size="16" font-family="Inter, PingFang TC, Microsoft JhengHei, sans-serif">溶解與交換 CO2</text>
+              </g>
+
+              <g>
+                <rect x="372" y="412" width="218" height="100" rx="28" fill="rgba(255,179,71,0.18)" stroke="rgba(255,179,71,0.58)"/>
+                <text x="481" y="454" text-anchor="middle" fill="#fff7ea" font-size="25" font-family="Inter, PingFang TC, Microsoft JhengHei, sans-serif">沉積物與岩石</text>
+                <text x="481" y="482" text-anchor="middle" fill="#c7d2e2" font-size="16" font-family="Inter, PingFang TC, Microsoft JhengHei, sans-serif">長期儲存的碳庫</text>
+              </g>
+
+              <g>
+                <rect x="674" y="400" width="214" height="114" rx="28" fill="rgba(255,179,71,0.16)" stroke="rgba(255,179,71,0.58)"/>
+                <text x="781" y="444" text-anchor="middle" fill="#fff7ea" font-size="25" font-family="Inter, PingFang TC, Microsoft JhengHei, sans-serif">化石燃料</text>
+                <text x="781" y="474" text-anchor="middle" fill="#c7d2e2" font-size="16" font-family="Inter, PingFang TC, Microsoft JhengHei, sans-serif">燃燒會回到大氣</text>
+              </g>
+
+              <path d="M478 158 C420 185, 318 202, 248 234" fill="none" stroke="#bfeeff" stroke-width="4" marker-end="url(#arrow)" stroke-dasharray="10 8"/>
+              <path d="M272 268 C330 254, 354 254, 368 258" fill="none" stroke="#bfeeff" stroke-width="4" marker-end="url(#arrow)"/>
+              <path d="M592 272 C626 272, 646 272, 640 272" fill="none" stroke="#bfeeff" stroke-width="4" marker-end="url(#arrow)"/>
+              <path d="M772 324 C770 350, 770 368, 770 400" fill="none" stroke="#ffd28c" stroke-width="4" marker-end="url(#arrow-warm)"/>
+              <path d="M488 338 C488 366, 488 386, 489 412" fill="none" stroke="#ffd28c" stroke-width="4" marker-end="url(#arrow-warm)"/>
+              <path d="M199 324 C182 352, 172 374, 166 402" fill="none" stroke="#bfeeff" stroke-width="4" marker-end="url(#arrow)"/>
+              <path d="M258 446 C312 442, 338 444, 372 458" fill="none" stroke="#bfeeff" stroke-width="4" marker-end="url(#arrow)"/>
+              <path d="M588 458 C630 458, 646 454, 674 450" fill="none" stroke="#ffd28c" stroke-width="4" marker-end="url(#arrow-warm)"/>
+              <path d="M482 510 C484 536, 500 548, 560 546" fill="none" stroke="#ffd28c" stroke-width="4" marker-end="url(#arrow-warm)"/>
+            </svg>
+          </div>
+
+          <div class="legend">
+            <article class="fact-card">
+              <div class="fact-chip">看圖重點 1</div>
+              <h3>短期循環</h3>
+              <p>大氣中的二氧化碳會被植物吸收，透過食物鏈進入動物，最後經呼吸、死亡與分解回到環境。</p>
+            </article>
+            <article class="fact-card">
+              <div class="fact-chip">看圖重點 2</div>
+              <h3>海洋也在交換碳</h3>
+              <p>海洋不只是水體，它可以溶解二氧化碳，並把一部分碳帶進海底沉積，形成較長時間尺度的循環。</p>
+            </article>
+            <article class="fact-card">
+              <div class="fact-chip">看圖重點 3</div>
+              <h3>長期循環與人類活動</h3>
+              <p>石灰岩、沉積物與化石燃料都是長期碳庫。若大量燃燒化石燃料，原本埋藏很久的碳會快速回到大氣中。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="challenge" class="section reveal">
+        <h2>互動遊戲或題目</h2>
+        <p class="quiz-intro">先玩左邊的「碳路徑挑戰」，再做右邊的小測驗。你可以一邊點選一邊理解碳是怎麼流動的。</p>
+
+        <div class="quiz-shell">
+          <div class="path-card">
+            <h3>碳路徑挑戰</h3>
+            <p class="path-intro">請依照碳從大氣開始的合理下一站，選出正確選項。每答對一步，碳就會往下一個庫存前進。</p>
+
+            <div class="path-stage">
+              <div class="stage-display">
+                <strong id="stageTitle">目前位置：大氣中的二氧化碳</strong>
+                <p id="stageText">下一步應該先被植物吸收，因為光合作用會把二氧化碳固定成有機物。</p>
+              </div>
+              <div class="stage-options" id="stageOptions"></div>
+              <div class="status-bar">
+                <span class="status-pill" id="pathStep">步驟 1 / 4</span>
+                <span class="status-pill" id="pathScore">正確 0 次</span>
+                <span class="status-pill" id="pathMessage">請先點選一個答案</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="quiz-card">
+            <div class="quiz-header">
+              <div>
+                <h3>快速小測驗</h3>
+                <p class="quiz-intro">共 4 題，結束後會直接顯示分數與提醒。</p>
+              </div>
+              <div class="score-box">
+                <strong id="scoreValue">0 / 4</strong>
+                <span>目前分數</span>
+              </div>
+            </div>
+
+            <div id="quizArea">
+              <div class="quiz-question" id="quizQuestion"></div>
+              <div class="quiz-options" id="quizOptions"></div>
+              <div class="feedback" id="quizFeedback">請選出最符合碳循環概念的答案。</div>
+            </div>
+
+            <div class="quiz-actions">
+              <button class="btn btn-primary" id="nextButton" type="button">下一題</button>
+              <button class="btn btn-secondary" id="restartButton" type="button">重新開始</button>
+            </div>
+
+            <div class="score-result" id="finalResult"></div>
+            <p class="footer-note">提醒：答題時先想「碳是往哪裡流動」而不是只背名詞，會更容易理解。</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const pathStages = [
+      {
+        title: "目前位置：大氣中的二氧化碳",
+        text: "下一步應該先被植物吸收，因為光合作用會把二氧化碳固定成有機物。",
+        options: [
+          { label: "植物進行光合作用吸收二氧化碳", correct: true },
+          { label: "岩石直接變成二氧化碳", correct: false },
+          { label: "動物立刻把它變成石油", correct: false }
+        ]
+      },
+      {
+        title: "目前位置：植物體內的有機碳",
+        text: "接下來碳可能透過食物鏈進入動物，或因植物呼吸作用回到大氣。",
+        options: [
+          { label: "被草食動物吃下去，進入食物鏈", correct: true },
+          { label: "直接消失到外太空", correct: false },
+          { label: "立刻變成岩漿", correct: false }
+        ]
+      },
+      {
+        title: "目前位置：動物和其他生物的體內",
+        text: "當生物呼吸或死亡分解後，碳會回到大氣、土壤或海洋。",
+        options: [
+          { label: "經由呼吸作用或分解作用回到環境", correct: true },
+          { label: "完全停止循環", correct: false },
+          { label: "變成閃電消散", correct: false }
+        ]
+      },
+      {
+        title: "目前位置：沉積物與化石燃料",
+        text: "這一步代表長期儲存的碳庫；若人類燃燒化石燃料，二氧化碳又會快速回到大氣。",
+        options: [
+          { label: "燃燒化石燃料，把碳送回大氣", correct: true },
+          { label: "馬上變成植物葉綠體", correct: false },
+          { label: "永遠停留在海面上不移動", correct: false }
+        ]
+      }
+    ];
+
+    const quizQuestions = [
+      {
+        question: "1. 下列哪個過程最能把大氣中的二氧化碳固定到生物體內？",
+        options: ["呼吸作用", "光合作用", "蒸散作用"],
+        answer: 1,
+        explanation: "光合作用會把二氧化碳轉變成有機物，讓碳進入植物體內。"
+      },
+      {
+        question: "2. 哪一項最可能增加大氣中的二氧化碳？",
+        options: ["種植森林", "海洋吸收二氧化碳", "燃燒煤和石油"],
+        answer: 2,
+        explanation: "燃燒化石燃料會快速釋放原本長期封存的碳。"
+      },
+      {
+        question: "3. 在碳循環中，分解者的角色最接近哪一項？",
+        options: ["把有機物分解並釋回環境", "把岩石變成植物", "讓二氧化碳消失"],
+        answer: 0,
+        explanation: "分解者會把死亡生物的有機物分解，讓碳回到土壤、大氣或水體。"
+      },
+      {
+        question: "4. 哪一個場所通常是長期儲存碳的重要位置？",
+        options: ["石灰岩與沉積物", "雲朵", "風"],
+        answer: 0,
+        explanation: "石灰岩、沉積物與化石燃料都屬於長期碳庫。"
+      }
+    ];
+
+    const stageTitle = document.getElementById("stageTitle");
+    const stageText = document.getElementById("stageText");
+    const stageOptions = document.getElementById("stageOptions");
+    const pathStep = document.getElementById("pathStep");
+    const pathScore = document.getElementById("pathScore");
+    const pathMessage = document.getElementById("pathMessage");
+
+    const quizQuestion = document.getElementById("quizQuestion");
+    const quizOptions = document.getElementById("quizOptions");
+    const quizFeedback = document.getElementById("quizFeedback");
+    const scoreValue = document.getElementById("scoreValue");
+    const nextButton = document.getElementById("nextButton");
+    const restartButton = document.getElementById("restartButton");
+    const finalResult = document.getElementById("finalResult");
+
+    let pathIndex = 0;
+    let pathCorrect = 0;
+    let pathLocked = false;
+
+    let quizIndex = 0;
+    let quizScore = 0;
+    let answered = false;
+    let quizFinished = false;
+
+    function renderPath() {
+      const stage = pathStages[pathIndex];
+      stageTitle.textContent = stage.title;
+      stageText.textContent = stage.text;
+      stageOptions.innerHTML = "";
+      pathMessage.textContent = "請選出最合理的下一步";
+      pathStep.textContent = `步驟 ${pathIndex + 1} / ${pathStages.length}`;
+      pathLocked = false;
+
+      stage.options.forEach((option) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "option";
+        button.textContent = option.label;
+        button.addEventListener("click", () => handlePathAnswer(button, option.correct));
+        stageOptions.appendChild(button);
+      });
+    }
+
+    function handlePathAnswer(button, correct) {
+      if (pathLocked) {
+        return;
+      }
+      pathLocked = true;
+      const buttons = [...stageOptions.querySelectorAll("button")];
+      buttons.forEach((item) => item.disabled = true);
+      buttons.forEach((item, index) => {
+        const stage = pathStages[pathIndex];
+        if (stage.options[index].correct) {
+          item.classList.add("correct");
+        }
+      });
+      if (correct) {
+        button.classList.add("correct");
+        pathCorrect += 1;
+        pathMessage.textContent = "答對了，碳成功前進到下一個庫存。";
+      } else {
+        button.classList.add("wrong");
+        pathMessage.textContent = "再想一次，碳循環的下一步應該更符合生物或環境中的轉移。";
+      }
+      pathScore.textContent = `正確 ${pathCorrect} 次`;
+
+      setTimeout(() => {
+        pathIndex = (pathIndex + 1) % pathStages.length;
+        renderPath();
+      }, 1100);
+    }
+
+    function renderQuiz() {
+      const current = quizQuestions[quizIndex];
+      quizQuestion.textContent = current.question;
+      quizOptions.innerHTML = "";
+      quizFeedback.textContent = "請選出最符合碳循環概念的答案。";
+      answered = false;
+      nextButton.disabled = true;
+      nextButton.textContent = quizIndex === quizQuestions.length - 1 ? "完成測驗" : "下一題";
+
+      current.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "quiz-option";
+        button.textContent = option;
+        button.addEventListener("click", () => handleQuizAnswer(button, index));
+        quizOptions.appendChild(button);
+      });
+    }
+
+    function handleQuizAnswer(button, index) {
+      if (answered || quizFinished) {
+        return;
+      }
+      answered = true;
+      const current = quizQuestions[quizIndex];
+      const buttons = [...quizOptions.querySelectorAll("button")];
+      buttons.forEach((item) => item.disabled = true);
+
+      buttons.forEach((item, itemIndex) => {
+        if (itemIndex === current.answer) {
+          item.classList.add("correct");
+        }
+      });
+
+      if (index === current.answer) {
+        quizScore += 1;
+        button.classList.add("correct");
+        quizFeedback.textContent = "答對了。你已經掌握這一題的碳流動方向。";
+      } else {
+        button.classList.add("wrong");
+        quizFeedback.textContent = current.explanation;
+      }
+
+      scoreValue.textContent = `${quizScore} / 4`;
+      nextButton.disabled = false;
+    }
+
+    function finishQuiz() {
+      quizFinished = true;
+      quizQuestion.textContent = "測驗完成";
+      quizOptions.innerHTML = "";
+      quizFeedback.textContent = "";
+      finalResult.style.display = "block";
+
+      const level = quizScore >= 3 ? "理解得很穩，已經能用碳循環的角度回答大部分題目。" : quizScore === 2 ? "概念有抓到，但還可以再把海洋和岩石圈補強。" : "建議重新看一次示意圖，先把大氣、生物與岩石三個庫存串起來。";
+      finalResult.innerHTML = `
+        你的最後成績是 <strong>${quizScore} / 4</strong>。<br />
+        ${level}
+      `;
+      nextButton.disabled = true;
+      nextButton.textContent = "已完成";
+      quizQuestion.textContent = "想再挑戰一次，可以按重新開始。";
+    }
+
+    nextButton.addEventListener("click", () => {
+      if (!answered || quizFinished) {
+        return;
+      }
+      if (quizIndex === quizQuestions.length - 1) {
+        finishQuiz();
+        return;
+      }
+      quizIndex += 1;
+      renderQuiz();
+    });
+
+    restartButton.addEventListener("click", () => {
+      pathIndex = 0;
+      pathCorrect = 0;
+      pathLocked = false;
+      quizIndex = 0;
+      quizScore = 0;
+      answered = false;
+      quizFinished = false;
+      finalResult.style.display = "none";
+      finalResult.textContent = "";
+      scoreValue.textContent = "0 / 4";
+      nextButton.disabled = true;
+      nextButton.textContent = "下一題";
+      pathScore.textContent = "正確 0 次";
+      renderPath();
+      renderQuiz();
+    });
+
+    renderPath();
+    renderQuiz();
+  </script>
+</body>
+</html>
